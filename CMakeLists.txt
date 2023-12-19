@@ -13,11 +13,10 @@ ExternalProject_Add(
   SOURCE_DIR "mujoco-src"
   BINARY_DIR "mujoco-build"
   INSTALL_COMMAND ""
-  CMAKE_ARGS -DMUJOCO_BUILD_TESTS=OFF
-  )
-
-file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-catkin_package(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION} LIBRARIES mujoco)
+  CMAKE_ARGS -DMUJOCO_BUILD_TESTS=OFF)
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/mujoco_vendor)
+catkin_package(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include/mujoco_vendor
+               LIBRARIES mujoco)
 
 add_custom_command(
   TARGET mujoco
@@ -32,6 +31,5 @@ add_custom_command(
 add_custom_command(
   TARGET mujoco
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory mujoco-src/include/mujoco
+  COMMAND ${CMAKE_COMMAND} -E copy_directory mujoco-src/include
           ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-          
