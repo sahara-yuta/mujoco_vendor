@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(mujoco_vendor VERSION 3.0.0)
+project(mujoco VERSION 3.0.0)
 
 find_package(catkin REQUIRED)
 
@@ -14,8 +14,8 @@ ExternalProject_Add(
   BINARY_DIR "mujoco-build"
   INSTALL_COMMAND ""
   CMAKE_ARGS -DMUJOCO_BUILD_TESTS=OFF)
-file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/mujoco_vendor)
-catkin_package(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include/mujoco_vendor
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME})
+catkin_package(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME}
                LIBRARIES mujoco)
 
 add_custom_command(

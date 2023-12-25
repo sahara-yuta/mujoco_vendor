@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>mujoco_vendor</name>
+  <name>mujoco</name>
   <version>3.0.0</version>
-  <description>The mujoco_vendor package</description>
+  <description>The vendor package of mujoco.</description>
 
   <maintainer email="sahara@jsk.imi.i.u-tokyo.ac.jp">Sahara Yuta</maintainer>
 
