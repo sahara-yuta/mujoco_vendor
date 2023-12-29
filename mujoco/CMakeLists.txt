@@ -16,20 +16,25 @@ ExternalProject_Add(
   CMAKE_ARGS -DMUJOCO_BUILD_TESTS=OFF)
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME})
 catkin_package(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME}
-               LIBRARIES mujoco)
+  LIBRARIES mujoco)
 
 add_custom_command(
   TARGET mujoco
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory mujoco-build/bin
-          ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION})
+  ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION})
 add_custom_command(
   TARGET mujoco
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy mujoco-build/lib/*.so*
-          ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION})
+  ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION})
 add_custom_command(
   TARGET mujoco
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory mujoco-src/include
-          ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+  ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+add_custom_command(
+  TARGET mujoco
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory mujoco-src/model
+  ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_SHARE_DESTINATION}/model)
