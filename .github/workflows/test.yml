@@ -13,6 +13,8 @@ jobs:
       - name: Build ROS Package
         id: build
         run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-vcstool
           mkdir -p ~/mujoco_ws/src/mujoco
           ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
           cd ~/mujoco_ws
@@ -36,7 +38,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: badges
-      - name: Chekc Statuses
+      - name: Check Statuses
         run: |
           if [ ${{ steps.build.outcome }} == "failure" ]; then
           exit 1
