@@ -13,7 +13,7 @@ jobs:
       - name: Build ROS Package
         id: build
         run: |
-          mkdir -p ~/mujoco_ws/src
+          mkdir -p ~/mujoco_ws/src/mujoco
           ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
           cd ~/mujoco_ws
           vcs import --input src/mujoco/mujoco_vendor/.rosinstall
