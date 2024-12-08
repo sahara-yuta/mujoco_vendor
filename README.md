@@ -1,4 +1,6 @@
 # mujoco_vendor
+![Build Status](https://sahara-yuta.github.io/mujoco_vendor/build.svg)
+
 mujocoをrosのライブラリとして使用できるようにオーバーラップしたパッケージ。
 wstool等でこのリポジトリをクローンし、`catkin build mujoco`することで、使えるようになる。
 

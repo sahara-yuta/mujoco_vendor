@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - "*"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up ROS environment
+        uses: docker://osrf/ros:noetic-desktop-full
+      - name: Build ROS Package
+        id: build
+        run: |
+          mkdir -p ~/mujoco_ws/src
+          ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
+          cd ~/mujoco_ws
+          vcs import --input src/mujoco/mujoco_vendor/.rosinstall
+          rosdep install -yri --from-paths src
+          catkin build
+        continue-on-error: true
+      - name: Record Build Status
+        run: |
+          if [ ${{ steps.build.outcome }} == "success" ]; then
+          echo "BUILD_STATUS=success" >> $GITHUB_ENV
+          else
+          echo "BUILD_STATUS=failure" >> $GITHUB_ENV
+          fi
+      - name: Generate Badges
+        run: |
+          mkdir -p badges
+          curl -o badges/build.svg https://img.shields.io/badge/build-${BUILD_STATUS}-brightgreen
+      - name: Deploy Badges to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: badges
