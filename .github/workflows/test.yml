@@ -14,6 +14,7 @@ jobs:
         id: build
         run: |
           sudo apt-get update
+          sudo add-apt-repository universe
           sudo apt-get install -y python3-vcstool
           mkdir -p ~/mujoco_ws/src/mujoco
           ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
