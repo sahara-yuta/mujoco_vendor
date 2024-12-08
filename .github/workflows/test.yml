@@ -24,6 +24,7 @@ jobs:
           ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
           cd ~/mujoco_ws
           rosdep install -yri --from-paths src
+          . /opt/ros/noetic/setup.sh
           catkin build
         continue-on-error: true
       - name: Record Build Status
