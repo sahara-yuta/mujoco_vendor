@@ -21,7 +21,6 @@ jobs:
           mkdir -p ~/mujoco_ws/src/mujoco
           ln -s $(pwd) ~/mujoco_ws/src/mujoco/mujoco_vendor
           cd ~/mujoco_ws
-          # vcs import --input src/mujoco/mujoco_vendor/.rosinstall
           rosdep install -yri --from-paths src
           catkin build
         continue-on-error: true
