@@ -74,7 +74,7 @@ jobs:
         run: |
           mkdir -p badges
           function generate_badge {
-            if [ $2 == "success" ]; then
+            if [[ $2 == "success" ]]; then
               curl -o badges/$1.svg https://img.shields.io/badge/$1-success-brightgreen
             else
               curl -o badges/$1.svg https://img.shields.io/badge/$1-failure-red
@@ -90,6 +90,6 @@ jobs:
           publish_dir: badges
       - name: Check Statuses
         run: |
-          if [ $BUILD_STATUS == "failure" || $FILE_GENERATED == "failure" || $COMMAND_STATUS == "failure" ]; then
+          if [[ $BUILD_STATUS == "failure" || $FILE_GENERATED == "failure" || $COMMAND_STATUS == "failure" ]]; then
             exit 1
           fi
