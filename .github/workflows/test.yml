@@ -38,7 +38,7 @@ jobs:
       - name: Verify Generated Files
         run: |
           cd ~/mujoco_ws
-          file_paths = (
+          file_paths=(
             "devel/lib/libmujoco.so.3.0.0"
             "devel/lib/libmujoco.so"
             "devel/lib/mujoco/simulate"
