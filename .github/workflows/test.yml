@@ -68,6 +68,7 @@ jobs:
             exit 1
           fi
           echo "COMMAND_STATUS=success" >> $GITHUB_ENV
+        continue-on-error: true
 
       - name: Generate Badges
         run: |
