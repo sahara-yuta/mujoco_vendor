@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: ros:noetic
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -43,6 +46,6 @@ jobs:
           publish_dir: badges
       - name: Check Statuses
         run: |
-          if [ ${{ steps.build.outcome }} -eq "failure" ]; then
+          if [ ${{ steps.build.outcome }} == "failure" ]; then
           exit 1
           fi
