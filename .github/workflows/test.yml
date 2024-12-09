@@ -35,10 +35,37 @@ jobs:
           else
           echo "BUILD_STATUS=failure" >> $GITHUB_ENV
           fi
+      - name: Verify Generated Files
+        run: |
+          cd ~/mujoco_ws
+          file_paths = (
+            "devel/lib/libmujoco.so.3.0.0"
+            "devel/lib/libmujoco.so"
+            "devel/lib/mujoco/simulate"
+            "devel/lib/mujoco/mujoco_plugin/libsdf.so"
+            "devel/share/mujoco/model/humanoid/humanoid.xml"
+          )
+          for file_path in "${file_paths[@]}"; do
+            if [ ! -f $file_path ]; then
+              echo "File $file_path not found"
+              echo "FILE_GENERATED=failed" >> $GITHUB_ENV
+              exit 1
+            fi
+          done
+          echo "FILE_GENERATED=success" >> $GITHUB_ENV
+        continue-on-error: true
       - name: Generate Badges
         run: |
           mkdir -p badges
-          curl -o badges/build.svg https://img.shields.io/badge/build-${BUILD_STATUS}-brightgreen
+          function generate_badge {
+            if [ -z $2 ]; then
+              curl -o badges/$1.svg https://img.shields.io/badge/$1-$2-brightgreen
+            else
+              curl -o badges/$1.svg https://img.shields.io/badge/$1-$2-red
+            fi
+          }
+          generate_badge "build" $BUILD_STATUS
+          generate_badge "file_generated" $FILE_GENERATED
       - name: Deploy Badges to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
