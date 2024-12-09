@@ -8,7 +8,7 @@ include(ExternalProject)
 
 ExternalProject_Add(
   mujoco
-  GIT_REPOSITORY git@github.com:google-deepmind/mujoco.git
+  GIT_REPOSITORY https://github.com/google-deepmind/mujoco.git
   GIT_TAG ${MUJOCO_VERSION}
   UPDATE_COMMAND ""
   SOURCE_DIR "mujoco-src"
