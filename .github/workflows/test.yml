@@ -58,11 +58,11 @@ jobs:
         run: |
           cd ~/mujoco_ws
           . devel/setup.bash
-          if [[ -z $(catkin_find mujoco model/humanoid/humanoid.xml)]]; then
+          if [ -z $(catkin_find mujoco model/humanoid/humanoid.xml) ]; then
             echo "COMMAND_STATUS=failed" >> $GITHUB_ENV
             exit 1
           fi
-          if [[ 124 == $(timeout 5s rosrun mujoco simulate) ]]; then
+          if [ 124 == $(timeout 5s rosrun mujoco simulate) ]; then
             echo "COMMAND_STATUS=failed" >> $GITHUB_ENV
             exit 1
           fi
