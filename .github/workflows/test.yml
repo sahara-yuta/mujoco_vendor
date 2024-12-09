@@ -13,7 +13,7 @@ jobs:
       - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget curl git python3-vcstool python3-catkin-tools
+          sudo apt-get install -y wget curl git python3-vcstool python3-catkin-tools xorg-dev x11-apps
           rosdep update
       - name: Build ROS Package
         id: build
@@ -43,6 +43,6 @@ jobs:
           publish_dir: badges
       - name: Check Statuses
         run: |
-          if [ ${{ steps.build.outcome }} == "failure" ]; then
+          if [ ${{ steps.build.outcome }} -eq "failure" ]; then
           exit 1
-          fi
+          fia
