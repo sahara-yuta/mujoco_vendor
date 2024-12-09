@@ -54,6 +54,20 @@ jobs:
           done
           echo "FILE_GENERATED=success" >> $GITHUB_ENV
         continue-on-error: true
+      - name: Verify Cpmmand
+        run: |
+          cd ~/mujoco_ws
+          . devel/setup.bash
+          if [[ -z $(catkin_find mujoco model/humanoid/humanoid.xml)]]; then
+            echo "COMMAND_STATUS=failed" >> $GITHUB_ENV
+            exit 1
+          fi
+          if [[ 124 == $(timeout 5s rosrun mujoco simulate) ]]; then
+            echo "COMMAND_STATUS=failed" >> $GITHUB_ENV
+            exit 1
+          fi
+          echo "COMMAND_STATUS=success" >> $GITHUB_ENV
+
       - name: Generate Badges
         run: |
           mkdir -p badges
@@ -66,6 +80,7 @@ jobs:
           }
           generate_badge "build" $BUILD_STATUS
           generate_badge "file_generated" $FILE_GENERATED
+          generate_badge "command" $COMMAND_STATUS
       - name: Deploy Badges to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -73,6 +88,6 @@ jobs:
           publish_dir: badges
       - name: Check Statuses
         run: |
-          if [ ${{ steps.build.outcome }} == "failure" ]; then
-          exit 1
+          if [ $BUILD_STATUS == "failure" || $FILE_GENERATED == "failure" || $COMMAND_STATUS == "failure" ]; then
+            exit 1
           fi
