@@ -39,7 +39,7 @@ jobs:
         run: |
           cd ~/mujoco_ws
           file_paths=(
-            "devel/lib/libmujoco.so.3.0.0"
+            "devel/lib/libmujoco.so.3.2.6"
             "devel/lib/libmujoco.so"
             "devel/lib/mujoco/simulate"
             "devel/lib/mujoco/mujoco_plugin/libsdf.so"

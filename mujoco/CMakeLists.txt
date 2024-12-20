@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(MUJOCO_VERSION 3.0.0)
+set(MUJOCO_VERSION 3.2.6)
 project(mujoco VERSION ${MUJOCO_VERSION})
 
 find_package(catkin REQUIRED)
